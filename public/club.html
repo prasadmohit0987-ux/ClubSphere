@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Club Details - ClubSphere</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>ClubSphere</h2>
+
+    <div>
+
+        <a href="index.html">Home</a>
+
+        <a href="clubs.html">Clubs</a>
+
+        <a href="dashboard.html">Dashboard</a>
+
+    </div>
+
+</nav>
+
+<main class="container">
+
+    <div id="clubDetails"></div>
+
+</main>
+
+<script>
+
+const params = new URLSearchParams(
+    window.location.search
+);
+
+const clubId = params.get("id");
+
+async function loadClub() {
+
+    const response =
+        await fetch(`/api/clubs/${clubId}`);
+
+    const club = await response.json();
+
+    const container =
+        document.getElementById("clubDetails");
+
+    if (!response.ok) {
+
+        container.innerHTML =
+            `<h1>${club.error}</h1>`;
+
+        return;
+
+    }
+
+    container.innerHTML = `
+
+        <div class="club-card">
+
+            <h1>${club.name}</h1>
+
+            <p>
+                <strong>Category:</strong>
+                ${club.category}
+            </p>
+
+            <p>
+                ${club.description}
+            </p>
+
+            <p>
+                <strong>President:</strong>
+                ${club.president}
+            </p>
+
+            <button onclick="joinClub()">
+                Join Club
+            </button>
+
+            <button onclick="leaveClub()">
+                Leave Club
+            </button>
+
+            <p id="message"></p>
+
+        </div>
+
+    `;
+
+}
+
+async function joinClub() {
+
+    const response =
+        await fetch(`/api/clubs/${clubId}/join`, {
+            method: "POST"
+        });
+
+    const data = await response.json();
+
+    document.getElementById("message").textContent =
+        data.message || data.error;
+
+}
+
+async function leaveClub() {
+
+    const response =
+        await fetch(`/api/clubs/${clubId}/leave`, {
+            method: "DELETE"
+        });
+
+    const data = await response.json();
+
+    document.getElementById("message").textContent =
+        data.message || data.error;
+
+}
+
+loadClub();
+
+</script>
+
+</body>
+
+</html>

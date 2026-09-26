@@ -1,0 +1,118 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #222;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 8%;
+    background: white;
+    border-bottom: 1px solid #ddd;
+}
+
+nav h2 {
+    margin: 0;
+}
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+}
+
+nav a:hover {
+    color: #000;
+}
+
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #666;
+}
+
+.button {
+    display: inline-block;
+    margin: 15px 5px;
+    padding: 12px 24px;
+    background: #222;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.button.secondary {
+    background: #666;
+}
+
+.button:hover {
+    opacity: 0.85;
+}
+
+.container {
+    width: 84%;
+    max-width: 1200px;
+    margin: 50px auto;
+}
+
+form {
+    max-width: 450px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input,
+button {
+    padding: 12px;
+    font-size: 16px;
+}
+
+button {
+    background: #222;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#clubs {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 20px;
+}
+
+.club-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.club-card h2 {
+    margin-top: 0;
+}
+
+.message {
+    text-align: center;
+    margin-top: 20px;
+}
