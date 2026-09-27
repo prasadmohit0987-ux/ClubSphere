@@ -221,25 +221,38 @@ app.get("/api/me", (req, res) => {
 });
 
 app.get("/api/clubs", (req, res) => {
+    const search = req.query.search?.trim() || "";
 
-    db.all(
-        "SELECT * FROM clubs ORDER BY name",
-        [],
-        (err, clubs) => {
+    let query = "SELECT * FROM clubs";
+    const params = [];
 
-            if (err) {
+    if (search) {
+        query += `
+            WHERE name LIKE ?
+            OR category LIKE ?
+            OR description LIKE ?
+        `;
 
-                return res.status(500).json({
-                    error: "Database error"
-                });
+        const searchTerm = `%${search}%`;
 
-            }
+        params.push(
+            searchTerm,
+            searchTerm,
+            searchTerm
+        );
+    }
 
-            res.json(clubs);
+    query += " ORDER BY name";
 
+    db.all(query, params, (err, clubs) => {
+        if (err) {
+            return res.status(500).json({
+                error: "Database error"
+            });
         }
-    );
 
+        res.json(clubs);
+    });
 });
 
 app.get("/api/clubs/:id", (req, res) => {
