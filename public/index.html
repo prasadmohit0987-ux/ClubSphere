@@ -72,6 +72,26 @@
 
 </main>
 
+<footer class="footer">
+    Running commit:
+    <span id="commitId">local</span>
+</footer>
+
+<script>
+async function loadCommitId() {
+    try {
+        const response = await fetch("/api/version");
+        const data = await response.json();
+
+        document.getElementById("commitId").textContent = data.commit;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+loadCommitId();
+</script>
+
 </body>
 
 </html>

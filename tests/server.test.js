@@ -25,7 +25,7 @@ describe("ClubSphere API", () => {
                 .get("/api/clubs");
 
         expect(response.statusCode)
-            .toBe(500);
+            .toBe(200);
 
         expect(Array.isArray(response.body))
             .toBe(true);

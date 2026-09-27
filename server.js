@@ -10,6 +10,11 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+const COMMIT =
+    (process.env.RENDER_GIT_COMMIT ||
+        process.env.GIT_SHA ||
+        "local").slice(0, 7);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,6 +36,21 @@ app.get("/api/health", (req, res) => {
     res.json({
         status: "OK",
         message: "ClubSphere server is running"
+    });
+});
+
+app.get("/health", (req, res) => {
+
+    res.json({
+        status: "ok",
+        commit: process.env.GIT_SHA || "local"
+    });
+
+});
+
+app.get("/api/version", (req, res) => {
+    res.json({
+        commit: COMMIT
     });
 });
 
